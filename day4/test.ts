@@ -1,0 +1,1 @@
+console.log(" *\n **\n***\ntypescript \n code")

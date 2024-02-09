@@ -115,7 +115,7 @@
                     <th>Actions</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="tableBody">
                   <tr>
                     <td>1</td>
                     <td>Medical Leave</td>
@@ -124,7 +124,11 @@
                     <td>6</td>
                     <td>Approved</td>
                     <td>
-                      <button class="btn btn-outline-success btn-sm" data-bs-target="#attachmentModal" data-bs-toggle="modal">
+                      <button
+                        class="btn btn-outline-success btn-sm"
+                        data-bs-target="#attachmentModal"
+                        data-bs-toggle="modal"
+                      >
                         View Attachments
                       </button>
                     </td>
@@ -199,19 +203,34 @@
                 <div class="col-sm-12 col-md-6">
                   <div class="form-group mb-3">
                     <label for="fromDate" class="form-label">From</label>
-                    <input type="date" id="fromDate" class="form-control" required />
+                    <input
+                      type="date"
+                      id="fromDate"
+                      class="form-control"
+                      required
+                    />
                   </div>
                 </div>
                 <div class="col-sm-12 col-md-6">
                   <div class="form-group mb-3">
                     <label for="toDate" class="form-label">To</label>
-                    <input type="date" id="toDate" class="form-control" required />
+                    <input
+                      type="date"
+                      id="toDate"
+                      class="form-control"
+                      required
+                    />
                   </div>
                 </div>
               </div>
               <div class="form-group mb-3">
                 <label for="evidence" class="form-label">Evidence</label>
-                <input type="file" id="evidence" class="form-control" required />
+                <input
+                  type="file"
+                  id="evidence"
+                  class="form-control"
+                  required
+                />
               </div>
             </form>
             <!-- form -->
@@ -241,7 +260,9 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">View Leave Attachment</h5>
+            <h5 class="modal-title" id="exampleModalLabel">
+              View Leave Attachment
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -250,14 +271,17 @@
             ></button>
           </div>
           <div class="modal-body">
-          <!-- modal content -->
-          <div class="d-flex flex-column align-items-center justify-content-center" style="height: 300px;">
-            <div class="spinner-border" role="status">
+            <!-- modal content -->
+            <div
+              class="d-flex flex-column align-items-center justify-content-center"
+              style="height: 300px"
+            >
+              <div class="spinner-border" role="status">
                 <span class="visually-hidden">Loading...</span>
               </div>
               <p>Please wait...</p>
-          </div>
-          <!-- ./modal content -->
+            </div>
+            <!-- ./modal content -->
           </div>
           <div class="modal-footer">
             <button
@@ -274,5 +298,59 @@
     </div>
 
     <!-- ./modal -->
+
+    <script type="text/javascript">
+        let tds = [];
+          let trs = [];
+          const tbody = document.getElementById("tableBody");
+      fetch("http://localhost:3009/api/EmpLeaves", {
+        method: "get",
+      })
+        .then((response) => response.json())
+        .then((jsonData) => {
+          console.log(jsonData);
+          
+          jsonData.forEach((data) => {
+            tds.push(td(data["empId"]));
+            tds.push(td(data["leaveType"]));
+            tds.push(td(data["startDate"]));
+            tds.push(td(data["endDate"]));
+            tds.push(td(data["status"]));
+            tds.push(td(6));
+            tds.push(
+              td(`
+            <button
+                        class="btn btn-outline-success btn-sm"
+                        data-bs-target="#attachmentModal"
+                        data-bs-toggle="modal"
+                      >
+                        View Attachments
+                      </button>
+            `)
+            );
+
+            //add all tds
+            trs.push(tr(tds));
+            tds = [];
+          });
+          const tableContent = trs.join("");
+          //   console.log(tableContent);
+
+         
+          console.log(tbody, "hey");
+          tbody.innerHTML = tableContent;
+          console.log(tbody, "updated");
+        })
+        .catch((err) => {
+          //error block
+        });
+
+      function td(data) {
+        return `<td>${data}</td>`;
+      }
+      function tr(tds) {
+        return `<tr>${tds.join("")}</tr>`;
+      }
+    </script>
   </body>
 </html>

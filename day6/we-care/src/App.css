@@ -1,0 +1,17 @@
+/* a css file */
+
+body {
+    background-color: #fefefe;
+}
+
+.rounded-btn {
+    border-radius: 60px;
+}
+
+.loading-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+    
+}

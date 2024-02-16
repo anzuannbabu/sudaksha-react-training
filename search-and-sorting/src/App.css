@@ -1,0 +1,13 @@
+@import  "tabulator-tables";
+body {
+  /* background-color:azure; */
+}
+
+.btn {
+  border-radius: 100px;
+}
+
+.btn:active {
+  transform: scale(96%);
+}
+

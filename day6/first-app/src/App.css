@@ -1,0 +1,31 @@
+.counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.counter:first-child {
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.counter button {
+  padding: 12px;
+  min-width: 150px;
+  background-color: dodgerblue;
+  border: none;
+  border-radius: 50px;
+  margin: 5px;
+}
+
+.counter button:hover {
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+}
+
+.counter button:active {
+  transform: scale(96%);
+}
